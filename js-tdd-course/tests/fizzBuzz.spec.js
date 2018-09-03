@@ -28,7 +28,11 @@ describe('FizzBuzz', () => {
     expect(fizzbuzz(75)).to.be.equal('FizzBuzz')
   })
 
-  it('Should return empty string when not multiple of 3 or 5', () => {
-    expect(fizzbuzz(7)).to.be.equal('')
+  it('Should return the number when not multiple of 3 or 5', () => {
+    expect(fizzbuzz(7)).to.be.equal(7)
+  })
+
+  it('Should return the number when is 0', () => {
+    expect(fizzbuzz(0)).to.be.equal(0)
   })
 })

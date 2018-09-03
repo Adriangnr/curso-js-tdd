@@ -10,15 +10,18 @@ const multp5 = (number) => (number % 5) == 0
 const multp3and5 = (number) => (multp3(number) && multp5(number))
 
 module.exports = (number) => {
-  let result = ''
-  if( multp3and5(number) )
-    result = 'FizzBuzz'
-  else{
-    if( multp5(number) )
-      result = 'Buzz'
-    else
+  let result = number
+  if( number !== 0){
+    if( multp3and5(number) )
+      result = 'FizzBuzz'
+    else{
+      if( multp5(number) )
+        result = 'Buzz'
+      else
       if( multp3(number) )
         result = 'Fizz'
+    }
   }
+
   return result
 }
