@@ -1,6 +1,6 @@
-# Project Title
+# Spotify Wrapper
 
-One Paragraph of project description goes here
+Wrapper to work with Spotify (https://developer.spotify.com/web-api)
 
 ## Getting Started
 
