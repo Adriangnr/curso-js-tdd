@@ -14,6 +14,7 @@ const server = http.createServer((req, res) => {
 process.on('SIGUSR1', () => {
   console.log("Antes de relodear ---> ", config)
   console.log('Received SIGUSR1. Reloading...')
+  config.reloadConfigs()
   console.log("DESPUES de relodear ---> ", config)
 });
 

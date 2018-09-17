@@ -55,6 +55,7 @@
     "rimraf": "^2.6.1"
   },
   "dependencies": {
+    "decache": "^4.4.0",
     "require-reload": "^0.2.2"
   }
 }

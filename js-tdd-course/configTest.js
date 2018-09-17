@@ -1,7 +1,13 @@
+const decache = require('decache')
+let config = {}
+
 const loadConfigs = () => {
-  requireTest = require('./requireTest')
+  decache('./requireTest')
+  config.requireTest = require('./requireTest')
 }
 
 loadConfigs()
 
-module.exports = loadConfigs()
+config.reloadConfigs = loadConfigs
+
+module.exports = config
