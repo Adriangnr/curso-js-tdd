@@ -45,10 +45,9 @@ describe('Spotify Wrapper', () => {
     beforeEach(() => {
       fetchStub = sinon.stub(global, 'fetch')
       promise = fetchStub.returns(Promise.resolve({
-        'body': 'json',
-        json(){
-
-        }
+            json: {
+              body: 'json'
+            }
       }))
     })
 
@@ -57,30 +56,28 @@ describe('Spotify Wrapper', () => {
     })
 
     it('Should call fetch function', () => {
-        search('Incubus', 'artist').then(response => {})
+        search('Incubus', 'artist')
         expect(fetchStub).to.have.been.calledOnce
     })
 
     it('Should recieve the correct url to fetch', () => {
       context('Passing one type', () => {
-        search('Incubus', 'artist').then(response => {})
+        search('Incubus', 'artist')
         expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist')
 
-        search('Incubus', 'album').then(response => {})
+        search('Incubus', 'album')
         expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist')
       })
 
       context('Passing more than one type', () => {
-        search('Incubus', ['artist', 'album']).then(response => {})
+        search('Incubus', ['artist', 'album'])
         expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album')
       })
     })
 
     it('Should return the JSON DATA from the promise', () => {
-      search('Incubus', 'artist').then( value => {
-        expect(value).to.be.eql({})
-      })
-
+      const response = search('Incubus', 'artist')
+        expect(response).to.be.eql({})
     })
   })
 })
