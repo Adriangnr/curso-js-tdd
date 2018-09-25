@@ -10,6 +10,25 @@ global.fetch = require('node-fetch')
 import { search, searchAlbums, searchArtists, searchPlaylists, searchTracks } from '../src/spotify-wrapper'
 
 describe('Spotify Wrapper', () => {
+
+  let fetchStub
+  let promise
+
+  beforeEach(() => {
+    fetchStub = sinon.stub(global, 'fetch')
+    promise = fetchStub.returns(new Promise((resolve, reject) => {
+      resolve({
+        json() {
+          return {}
+        }
+      })
+    }))
+  })
+
+  afterEach(() => {
+    fetchStub.restore()
+  })
+
   describe('Smoke tests', () => {
     //search generico. se puede buscar por mas de un tipo
     //searchAlbums
@@ -39,28 +58,12 @@ describe('Spotify Wrapper', () => {
   })
 
   describe('Generic Search', () => {
-    let fetchStub
-    let promise
-
-    beforeEach(() => {
-      fetchStub = sinon.stub(global, 'fetch')
-      promise = fetchStub.returns(Promise.resolve({
-            json: {
-              body: 'json'
-            }
-      }))
-    })
-
-    afterEach(() => {
-      fetchStub.restore()
-    })
-
     it('Should call fetch function', () => {
-        search('Incubus', 'artist')
-        expect(fetchStub).to.have.been.calledOnce
+      search('Incubus', 'artist')
+      expect(fetchStub).to.have.been.calledOnce
     })
 
-    it('Should recieve the correct url to fetch', () => {
+    it('Should recieve the correct url to fetch', (done) => {
       context('Passing one type', () => {
         search('Incubus', 'artist')
         expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist')
@@ -73,11 +76,84 @@ describe('Spotify Wrapper', () => {
         search('Incubus', ['artist', 'album'])
         expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album')
       })
+
+      done()
     })
 
-    it('Should return the JSON DATA from the promise', () => {
-      const response = search('Incubus', 'artist')
-        expect(response).to.be.eql({})
+    it('Should return the JSON DATA from the promise', (done) => {
+      search('Incubus', 'artist').then(response => {
+        expect(response).to.be.equal({})
+      }).catch(err => err)
+
+      done()
+    })
+  })
+
+  describe('Search Artists', () => {
+    it('Should fetch function', (done) => {
+      searchArtists('Incubus')
+      expect(fetchStub).to.have.been.calledOnce
+      done()
+    })
+
+    it('Should call fetch with the correct URL', (done) => {
+      searchArtists('Incubus')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist')
+
+      searchArtists('Muse')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist')
+      done()
+    })
+  })
+
+  describe('Search Albums', () => {
+    it('Should fetch function', (done) => {
+      searchAlbums('Incubus')
+      expect(fetchStub).to.have.been.calledOnce
+      done()
+    })
+
+    it('Should call fetch with the correct URL', (done) => {
+      searchAlbums('Incubus')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album')
+
+      searchAlbums('Muse')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=album')
+      done()
+    })
+  })
+
+  describe('Search Tracks', () => {
+    it('Should fetch function', (done) => {
+      searchTracks('Incubus')
+      expect(fetchStub).to.have.been.calledOnce
+      done()
+    })
+
+    it('Should call fetch with the correct URL', (done) => {
+      searchTracks('Incubus')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=tracks')
+
+      searchTracks('Muse')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=tracks')
+      done()
+    })
+  })
+
+  describe('Search Playlists', () => {
+    it('Should fetch function', (done) => {
+      searchPlaylists('Incubus')
+      expect(fetchStub).to.have.been.calledOnce
+      done()
+    })
+
+    it('Should call fetch with the correct URL', (done) => {
+      searchPlaylists('Incubus')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Incubus&type=playlist')
+
+      searchPlaylists('Muse')
+      expect(fetchStub).to.have.been.calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist')
+      done()
     })
   })
 })

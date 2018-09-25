@@ -1,7 +1,13 @@
+const search = (query, type) => fetch(`https://api.spotify.com/v1/search?q=${query}&type=${type}`).then(data => data.json())
+const searchAlbums = (query) => search(query, 'album')
+const searchArtists = (query) => search(query, 'artist')
+const searchTracks = (query) => search(query, 'tracks')
+const searchPlaylists = (query) => search(query, 'playlist')
+
 module.exports = {
-  search: (query, type) => fetch(`https://api.spotify.com/v1/search?q=${query}&type=${type}`),
-  searchAlbums: () => {},
-  searchArtists: () => {},
-  searchTracks: () => {},
-  searchPlaylists: () => {}
+  search,
+  searchAlbums,
+  searchArtists,
+  searchTracks,
+  searchPlaylists
 }
