@@ -7,10 +7,10 @@ chai.use(sinonChai)
 sinonStubPromise(sinon)
 global.fetch = require('node-fetch')
 
-import { search, searchAlbums, searchArtists, searchPlaylists, searchTracks } from '../src/spotify-wrapper'
+import { search, searchAlbums, searchArtists, searchPlaylists, searchTracks } from '../src/search'
 import { API_URL } from "../configs/configs"
 
-describe('Spotify Wrapper', () => {
+describe('Search', () => {
 
   let fetchStub
   let promise
