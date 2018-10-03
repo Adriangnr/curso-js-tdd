@@ -1,15 +1,13 @@
-'use strict';
+import { search, searchArtists, searchAlbums, searchPlaylists } from './search';
 
-var _search = require('./search');
-
-var _album = require('./album');
+import { getAlbum, getAlbums, getAlbumTracks } from './album';
 
 module.exports = {
-  search: _search.search,
-  searchArtists: _search.searchArtists,
-  searchAlbums: _search.searchAlbums,
-  searchPlaylists: _search.searchPlaylists,
-  getAlbum: _album.getAlbum,
-  getAlbums: _album.getAlbums,
-  getAlbumTracks: _album.getAlbumTracks
+  search,
+  searchArtists,
+  searchAlbums,
+  searchPlaylists,
+  getAlbum,
+  getAlbums,
+  getAlbumTracks
 };
