@@ -1,14 +1,9 @@
-const API_URL = 'https://api.spotify.com/v1'
+export const API_URL = 'https://api.spotify.com/v1'
 
-const TOKEN_API = "un token"
+const TOKEN_API = "BQCiU105dNyjf0gPuaZSmuiixeo5qKax6qUuELQJyL827jywk2j5wctuqXJqLrRK5PlGFOjKwjlUWFbF2vCiCbLRG08NSeIbVagRJhf2aTHlEoldKT2G56igxBlBhqr2fp1w7jnCIusQ5Qjf_G0"
 
-const HEADERS = {
+export const HEADERS = {
   headers: {
-    'Authorization': `'Bearer ${TOKEN_API}'`
+    Authorization: 'Bearer ' + TOKEN_API
   }
-}
-
-module.exports = {
-  API_URL,
-  HEADERS
 }
